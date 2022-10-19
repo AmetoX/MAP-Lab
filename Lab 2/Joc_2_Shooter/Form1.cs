@@ -30,7 +30,7 @@ namespace Joc_2_Shooter
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            Engine.Shoot(new Point(e.X, e.Y));
+            Engine.Shoot(e.Location);
         }
     }
 }
