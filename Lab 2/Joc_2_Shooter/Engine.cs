@@ -13,8 +13,9 @@ namespace Joc_2_Shooter
         public static List<Enemy> enemies = new List<Enemy>();
         public static Graphics graphics;
         public static Bitmap bitmap;
-
-        public static int horizon = 100;
+        public static int waveuri = 0;
+        public static int horizon = 550, //de unde vin inamicii
+            forthelth = 100;
 
         public static void Init(Form1 f1)
         {
@@ -24,13 +25,16 @@ namespace Joc_2_Shooter
             graphics = Graphics.FromImage(bitmap);
 
             // aceste date sunt hardcodate deocamdata
-            enemies.Add(new Enemy(100, 5, 0, 50));
-            enemies.Add(new Enemy(100, 5, 0, 50));
-            enemies.Add(new Enemy(100, 5, 0, 50));
-            enemies.Add(new Enemy(100, 5, 0, 50));
-            enemies.Add(new Enemy(100, 5, 0, 50));
+            wave();
         }
-
+        public static void wave()
+        {
+            enemies.Add(new Enemy(150, 5, 0, 50));
+            enemies.Add(new Enemy(50, 5, 0, 50));
+            enemies.Add(new Enemy(200, 5, 0, 50));
+            enemies.Add(new Enemy(100, 5, 0, 50));
+            enemies.Add(new Enemy(50, 5, 0, 50));
+        }
         public static void Shoot(Point click)
         {
             // parcurgem toti inamicii pentru a verifica daca toti dintre ei sunt impuscati
@@ -45,26 +49,33 @@ namespace Joc_2_Shooter
                     i--;
                 }
             }
-
+            
             // daca nu mai exista inamici, inseamna ca ai castigat
             if (enemies.Count == 0)
             {
-                form.timer1.Enabled = false;
-                MessageBox.Show("You defeated all the enemies!", "You Win!");
-                form.Close();
+                waveuri++;
+                if (waveuri > 3)
+                {
+                    form.timer1.Enabled = false;
+                    MessageBox.Show("You defeated all the enemies!", "You Win!");
+                    form.Close();
+                }
+                wave();
             }
         }
 
         public static void UpdateDisplay()
         {
             // culoarea de fundal. vom avea o imagine de fundal aici in schimb.
-            graphics.Clear(Color.ForestGreen);
+            //graphics.Clear(Color.ForestGreen);
+            graphics.DrawImage(form.background, 0, 0, form.Width, form.Height);
 
             // parcurgem toti inamicii pentru a-i afisa pe toti. si aici vom avea imagini.
             foreach (Enemy enemy in enemies)
             {
-                graphics.FillRectangle(new SolidBrush(Color.Crimson),
-                    enemy.position.X, enemy.position.Y, (int)enemy.size, (int)enemy.size);
+                graphics.DrawImage(form.enemyimg, enemy.position.X, enemy.position.Y, (int)enemy.size, (int)enemy.size);
+                // graphics.FillRectangle(new SolidBrush(Color.Crimson),
+                // enemy.position.X, enemy.position.Y, (int)enemy.size, (int)enemy.size);
             }
 
             form.pictureBox1.Image = bitmap;

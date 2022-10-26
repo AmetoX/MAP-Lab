@@ -2,6 +2,8 @@ namespace Joc_2_Shooter
 {
     public partial class Form1 : Form
     {
+        public Image background = Image.FromFile(@"../../../Images/img.jpg");
+        public Image enemyimg = Image.FromFile(@"../../../Images/enemy.png");
         public Form1()
         {
             InitializeComponent();

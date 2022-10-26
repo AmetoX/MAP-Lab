@@ -27,16 +27,16 @@ namespace Joc_2_Shooter
         public void Move()
         {
             // inamicul se apropie de noi cu speed pixeli.
-            position.Y += (int)speed;
+           // position.Y += (int)speed;
 
             // dimensiunea creste doar cu o parte din viteza pentru a nu fi prea mare spre final
-            size += speed / 16;
+            size += speed/2;
 
             // iar pozitia scade cu jumatate din cat a crescut dimensiunea pentru a pastra inamicul centrat
-            positionX -= speed / 32;
-            position.X = (int)positionX;
+            positionX -= speed / 2;
+            position.X = (int)positionX + 5;
         }
-
+        private static int dmg = 40;
         public void GetShot(Point click)
         {
             // verificam daca clickul a fost facut pe acest inamic
@@ -45,11 +45,11 @@ namespace Joc_2_Shooter
                 && click.Y > position.Y && click.Y < position.Y + size)
             {
                 // viata scade cu 20
-                health -= 20;
+                health -= dmg;
 
                 // si afisam scrisul cu damage-ul primit chiar deasupra clickului dat
-                Engine.graphics.DrawString("20", new Font("Arial", 12, FontStyle.Bold),
-                    new SolidBrush(Color.White), click.X, click.Y - 20);
+                Engine.graphics.DrawString($"{dmg}", new Font("Arial", 12, FontStyle.Bold),
+                    new SolidBrush(Color.Red), click.X, click.Y - 20);
                 Engine.form.pictureBox1.Image = Engine.bitmap;
             }
         }
