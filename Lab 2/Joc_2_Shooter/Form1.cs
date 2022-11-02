@@ -7,6 +7,7 @@ namespace Joc_2_Shooter
         public Image background = Image.FromFile(@"../../../Images/img.jpg");
         public Image normalZombie = Image.FromFile(@"../../../Images/enemy.png");
         public SoundPlayer backgroundSound = new SoundPlayer(@"../../../Sounds/Thriller.wav");
+        public Image pistol = Image.FromFile(@"../../../Images/Pistol.png");
         public Form1()
         {
             InitializeComponent();
@@ -21,9 +22,11 @@ namespace Joc_2_Shooter
 
             // asa ne asiguram ca background-ul label-urilor este in functie de imaginea de fundal
             TimeLabel.Parent = WaveLabel.Parent = HealthLabel.Parent = pictureBox1;
+            Gun.Parent = pictureBox1;
+            this.Cursor = Cursors.Cross;
 
             //primul sunet de fundal
-            backgroundSound.Play();
+            backgroundSound.PlayLooping();
             Engine.Init(this);
         }
 
@@ -57,6 +60,11 @@ namespace Joc_2_Shooter
         private void timer1_Tick(object sender, EventArgs e)
         {
             Engine.Tick();
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            Gun.Location = new Point(e.Location.X, e.Location.Y + 20);
         }
     }
 }

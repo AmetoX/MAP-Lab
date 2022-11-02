@@ -17,7 +17,6 @@ namespace Joc_2_Shooter
         public static List<List<Enemy>> waves = new List<List<Enemy>>();
         public static Graphics graphics;
         public static Bitmap bitmap;
-
         public static int horizon = 100, wave = 1;
         public static double fortHealth = 100, time = 0;
 
@@ -61,9 +60,7 @@ namespace Joc_2_Shooter
                 }
                 else
                 {
-                    form.timer1.Enabled = false;
-                    MessageBox.Show("You defeated all the enemies!", "You Win!");
-                    form.Close();
+                    Win();
                 }
             }
 
@@ -74,14 +71,18 @@ namespace Joc_2_Shooter
                 curentWave.RemoveAt(0);
             }
 
-            // miscam fiecare inamic mai in fata
-            for (int i = 0; i < enemies.Count; i++)
+            MoveEnemies();
+            CheckIfYouLose();
+            UpdateDisplay();
+        }
+        private static void MoveEnemies()
+        {
+            for(int i = 0; i < enemies.Count; i++)
             {
                 Enemy enemy = enemies[i];
                 enemy.Move();
 
-                // verificam daca inamicul nu mai este vazut, caz in care primim damage
-                if (enemy.position.Y >= form.Height)
+                if(enemy.position.Y >= form.Height)
                 {
                     fortHealth -= enemy.damage;
                     form.HealthLabel.Text = $"Health {fortHealth}";
@@ -89,17 +90,24 @@ namespace Joc_2_Shooter
                     i--;
                 }
             }
-
-            // verificam daca pierdem
+        }
+        public static void Win()
+        {
+            form.timer1.Enabled = false;
+            form.backgroundSound.Stop();
+            MessageBox.Show("You defeated all the enemies!", "You win");
+            form.Close();
+        }
+        public static void CheckIfYouLose()
+        {
             if (fortHealth <= 0)
             {
                 form.timer1.Enabled = false;
-                MessageBox.Show("You fort walls were destroyed!", "You Lose!");
+                form.backgroundSound.Stop();
+                MessageBox.Show("Your fort walls were destroyed!");
                 form.Close();
             }
-            UpdateDisplay();
         }
-
         public static void Shoot(Point click)
         {
             // parcurgem toti inamicii pentru a verifica daca toti dintre ei sunt impuscati
@@ -129,6 +137,7 @@ namespace Joc_2_Shooter
         {
             // Aici setam imaginea de fundal
             graphics.DrawImage(form.background, 0, 0, form.Width, form.Height);
+            enemies.Sort((Enemy e1,Enemy e2) => e1.position.Y - e2.position.Y);//sortam inamicii
 
             // parcurgem toti inamicii pentru a afisa imaginea acestora pentru toti.
             foreach (Enemy enemy in enemies)
@@ -139,7 +148,6 @@ namespace Joc_2_Shooter
 
             form.pictureBox1.Image = bitmap;
         }
-
         public static Point GetRandomPoint(int sizeX, int sizeY)
         {
             // pozitia y a fiecarui inamic este mereu la linia orizontului

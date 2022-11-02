@@ -35,7 +35,9 @@
             this.TimeLabel = new System.Windows.Forms.Label();
             this.HealthLabel = new System.Windows.Forms.Label();
             this.WaveLabel = new System.Windows.Forms.Label();
+            this.Gun = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Gun)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -43,13 +45,14 @@
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(-1, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1266, 800);
+            this.pictureBox1.Size = new System.Drawing.Size(1259, 805);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);            
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // timer1
             // 
@@ -94,11 +97,24 @@
             this.WaveLabel.TabIndex = 3;
             this.WaveLabel.Text = "Wave 1";
             // 
+            // Gun
+            // 
+            this.Gun.BackColor = System.Drawing.Color.Transparent;
+            this.Gun.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.Gun.Image = ((System.Drawing.Image)(resources.GetObject("Gun.Image")));
+            this.Gun.Location = new System.Drawing.Point(857, 379);
+            this.Gun.Name = "Gun";
+            this.Gun.Size = new System.Drawing.Size(200, 200);
+            this.Gun.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.Gun.TabIndex = 4;
+            this.Gun.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1259, 796);
+            this.Controls.Add(this.Gun);
             this.Controls.Add(this.WaveLabel);
             this.Controls.Add(this.HealthLabel);
             this.Controls.Add(this.TimeLabel);
@@ -111,6 +127,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Gun)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,5 +140,6 @@
         public System.Windows.Forms.Label TimeLabel;
         public System.Windows.Forms.Label HealthLabel;
         public System.Windows.Forms.Label WaveLabel;
+        public PictureBox Gun;
     }
 }
