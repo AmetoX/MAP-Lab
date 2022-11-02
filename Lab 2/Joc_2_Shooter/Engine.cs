@@ -18,7 +18,7 @@ namespace Joc_2_Shooter
         public static Graphics graphics;
         public static Bitmap bitmap;
 
-        public static int horizon = 100;
+        public static int horizon = 100, wave = 1;
         public static double fortHealth = 100, time = 0;
 
         public static void Init(Form1 f1)
@@ -29,16 +29,43 @@ namespace Joc_2_Shooter
             graphics = Graphics.FromImage(bitmap);
 
             // aceste date sunt hardcodate deocamdata
-            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 0));
-            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 20));
-            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 35));
-            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 45));
-            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 55));
+            var wave1 = new List<Enemy>();
+            wave1.Add(new Enemy(100, 5, 20, 50, 100, 0));
+            wave1.Add(new Enemy(100, 5, 20, 50, 100, 20));
+            wave1.Add(new Enemy(100, 5, 20, 50, 100, 35));
+            wave1.Add(new Enemy(100, 5, 20, 50, 100, 45));
+            wave1.Add(new Enemy(100, 5, 20, 50, 100, 55));
+
+            var wave2 = new List<Enemy>();
+            wave2.Add(new Enemy(100, 5, 20, 50, 100, 0));
+            wave2.Add(new Enemy(100, 5, 20, 50, 100, 20));
+            wave2.Add(new Enemy(100, 5, 20, 50, 100, 35));
+            wave2.Add(new Enemy(100, 5, 20, 50, 100, 45));
+            wave2.Add(new Enemy(100, 5, 20, 50, 100, 55));
+
+            waves.Add(wave1);
+            waves.Add(wave2);
+            curentWave = wave1;
         }
         public static void Tick()
         {
             time++;
             form.TimeLabel.Text = $"{time / 10}s";
+
+            // daca nu mai exista inamici, inseamna ca ai castigat
+            if (curentWave.Count == 0 && enemies.Count == 0)
+            {
+                if (wave < waves.Count)
+                {
+                    NextWave();
+                }
+                else
+                {
+                    form.timer1.Enabled = false;
+                    MessageBox.Show("You defeated all the enemies!", "You Win!");
+                    form.Close();
+                }
+            }
 
             // adaugam inamicii in lista de inamici afisati doar cand se ajunge la spawnTime
             if (curentWave.Any() && curentWave[0].spawnTime <= time)
@@ -88,15 +115,16 @@ namespace Joc_2_Shooter
                 }
             }
 
-            // daca nu mai exista inamici, inseamna ca ai castigat
-            if (curentWave.Count == 0 && enemies.Count == 0)
-            {
-                form.timer1.Enabled = false;
-                MessageBox.Show("You defeated all the enemies!", "You Win!");
-                form.Close();
-            }
-        }
 
+        }
+        public static void NextWave()
+        {
+            wave++;
+            waves.RemoveAt(0);
+            curentWave = waves[0];
+            time = 0;
+            form.WaveLabel.Text = $"Wave {wave}";
+        }
         public static void UpdateDisplay()
         {
             // Aici setam imaginea de fundal
@@ -118,9 +146,5 @@ namespace Joc_2_Shooter
             // iar pozitia x este la intamplare
             return new Point(random.Next(form.Width - sizeX), horizon - sizeY);
         }
-    }
-
-    internal class wave
-    {
     }
 }
