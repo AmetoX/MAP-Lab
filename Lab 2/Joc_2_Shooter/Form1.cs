@@ -1,9 +1,12 @@
+using System.Media;
+
 namespace Joc_2_Shooter
 {
     public partial class Form1 : Form
     {
         public Image background = Image.FromFile(@"../../../Images/img.jpg");
         public Image normalZombie = Image.FromFile(@"../../../Images/enemy.png");
+        public SoundPlayer backgroundSound = new SoundPlayer(@"../../../Sounds/Thriller.wav");
         public Form1()
         {
             InitializeComponent();
@@ -18,6 +21,9 @@ namespace Joc_2_Shooter
 
             // asa ne asiguram ca background-ul label-urilor este in functie de imaginea de fundal
             TimeLabel.Parent = WaveLabel.Parent = HealthLabel.Parent = pictureBox1;
+
+            //primul sunet de fundal
+            backgroundSound.Play();
             Engine.Init(this);
         }
 

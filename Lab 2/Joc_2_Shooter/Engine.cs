@@ -13,7 +13,8 @@ namespace Joc_2_Shooter
     {
         public static Form1 form;
         public static Random random = new Random();
-        public static List<Enemy> enemies = new List<Enemy>(), wave = new List<Enemy>();
+        public static List<Enemy> enemies = new List<Enemy>(), curentWave = new List<Enemy>();
+        public static List<List<Enemy>> waves = new List<List<Enemy>>();
         public static Graphics graphics;
         public static Bitmap bitmap;
 
@@ -28,11 +29,11 @@ namespace Joc_2_Shooter
             graphics = Graphics.FromImage(bitmap);
 
             // aceste date sunt hardcodate deocamdata
-            wave.Add(new Enemy(100, 5, 20, 50, 100, 0));
-            wave.Add(new Enemy(100, 5, 20, 50, 100, 20));
-            wave.Add(new Enemy(100, 5, 20, 50, 100, 35));
-            wave.Add(new Enemy(100, 5, 20, 50, 100, 45));
-            wave.Add(new Enemy(100, 5, 20, 50, 100, 55));
+            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 0));
+            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 20));
+            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 35));
+            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 45));
+            curentWave.Add(new Enemy(100, 5, 20, 50, 100, 55));
         }
         public static void Tick()
         {
@@ -40,10 +41,10 @@ namespace Joc_2_Shooter
             form.TimeLabel.Text = $"{time / 10}s";
 
             // adaugam inamicii in lista de inamici afisati doar cand se ajunge la spawnTime
-            if (wave.Any() && wave[0].spawnTime <= time)
+            if (curentWave.Any() && curentWave[0].spawnTime <= time)
             {
-                enemies.Add(wave[0]);
-                wave.RemoveAt(0);
+                enemies.Add(curentWave[0]);
+                curentWave.RemoveAt(0);
             }
 
             // miscam fiecare inamic mai in fata
@@ -88,7 +89,7 @@ namespace Joc_2_Shooter
             }
 
             // daca nu mai exista inamici, inseamna ca ai castigat
-            if (wave.Count == 0 && enemies.Count == 0)
+            if (curentWave.Count == 0 && enemies.Count == 0)
             {
                 form.timer1.Enabled = false;
                 MessageBox.Show("You defeated all the enemies!", "You Win!");
@@ -117,5 +118,9 @@ namespace Joc_2_Shooter
             // iar pozitia x este la intamplare
             return new Point(random.Next(form.Width - sizeX), horizon - sizeY);
         }
+    }
+
+    internal class wave
+    {
     }
 }
