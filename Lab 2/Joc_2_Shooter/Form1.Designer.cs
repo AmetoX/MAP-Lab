@@ -36,8 +36,12 @@
             this.HealthLabel = new System.Windows.Forms.Label();
             this.WaveLabel = new System.Windows.Forms.Label();
             this.Gun = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.Play = new System.Windows.Forms.Button();
+            this.Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Gun)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -51,7 +55,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(1259, 805);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);            
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // timer1
@@ -109,11 +113,44 @@
             this.Gun.TabIndex = 4;
             this.Gun.TabStop = false;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.Location = new System.Drawing.Point(122, 62);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(582, 358);
+            this.pictureBox2.TabIndex = 5;
+            this.pictureBox2.TabStop = false;
+            // 
+            // Play
+            // 
+            this.Play.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Play.Location = new System.Drawing.Point(355, 222);
+            this.Play.Name = "Play";
+            this.Play.Size = new System.Drawing.Size(94, 29);
+            this.Play.TabIndex = 6;
+            this.Play.Text = "Play";
+            this.Play.UseVisualStyleBackColor = true;
+            // 
+            // Exit
+            // 
+            this.Exit.Location = new System.Drawing.Point(355, 257);
+            this.Exit.Name = "Exit";
+            this.Exit.Size = new System.Drawing.Size(94, 29);
+            this.Exit.TabIndex = 7;
+            this.Exit.Text = "Exit";
+            this.Exit.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1259, 796);
+            this.Controls.Add(this.Exit);
+            this.Controls.Add(this.Play);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.Gun);
             this.Controls.Add(this.WaveLabel);
             this.Controls.Add(this.HealthLabel);
@@ -128,6 +165,7 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Gun)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,5 +179,8 @@
         public System.Windows.Forms.Label HealthLabel;
         public System.Windows.Forms.Label WaveLabel;
         public PictureBox Gun;
+        private PictureBox pictureBox2;
+        private Button Play;
+        private Button Exit;
     }
 }
