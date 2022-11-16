@@ -9,13 +9,14 @@ using System.Net.Http.Headers;
 
 namespace Joc_2_Shooter
 {
-    public class Enemy
+    public abstract class Enemy
     {
         public double health, speed, damage, sizeX, sizeY, positionX;
         public int spawnTime;
         public Point position;
+        public Image image;
 
-        public Enemy(double health, double speed, double damage, double sizeX, double sizeY, int spawnTime)
+        public Enemy(double health, double speed, double damage, double sizeX, double sizeY, int spawnTime, Image image)
         {
             this.health = health;
             this.speed = speed;
@@ -23,11 +24,14 @@ namespace Joc_2_Shooter
             this.sizeX = sizeX;
             this.sizeY = sizeY;
             this.spawnTime = spawnTime;
+            this.image = image;
             position = Engine.GetRandomPoint((int)sizeX, (int)sizeY);
             positionX = position.X;
         }
 
-        public void Move()
+        protected abstract bool IsHeadShot(Point click);
+
+        public virtual void Move()
         {
             // inamicul se apropie de noi cu speed pixeli.
             position.Y += (int)speed;
@@ -40,7 +44,12 @@ namespace Joc_2_Shooter
             positionX -= speed / 32;
             position.X = (int)positionX;
         }
-        private static int dmg = 40;
+
+        public void Draw()
+        {
+            Engine.graphics.DrawImage(image, position.X, position.Y, (int)sizeX, (int)sizeY);
+        }
+
         public void GetShot(Point click)
         {
             // verificam daca clickul a fost facut pe acest inamic
@@ -48,22 +57,26 @@ namespace Joc_2_Shooter
             if (click.X > position.X && click.X < position.X + sizeX
                 && click.Y > position.Y && click.Y < position.Y + sizeY)
             {
-                int x = click.X - position.X;
-                int y = click.Y - position.Y;
-                Bitmap zombie = new Bitmap((int)sizeX, (int)sizeY);
-                Graphics grp = Graphics.FromImage(zombie);
-                grp.DrawImage(Engine.form.normalZombie, 0, 0, (int)sizeX, (int)sizeY);
-                if(zombie.GetPixel(x,y).ToArgb() == 0)
-                {
+                // daca pixelul din imagine este transparent, inamicul nu a fost impuscat
+                if (Engine.IsPixelTransparent(click, this))
                     return;
+
+                // verificam daca este headshot
+                if (IsHeadShot(click))
+                {
+                    health -= 50;
+                    Engine.graphics.DrawString("50", new Font("Arial", 12, FontStyle.Bold),
+                        new SolidBrush(Color.Red), click.X, click.Y - 20);
                 }
+                else
+                {
+                    // viata scade cu 20
+                    health -= 20;
 
-                // viata scade cu 20
-                health -= dmg;
-
-                // si afisam scrisul cu damage-ul primit chiar deasupra clickului dat
-                Engine.graphics.DrawString($"{dmg}", new Font("Arial", 12, FontStyle.Bold),
-                    new SolidBrush(Color.Red), click.X, click.Y - 20);
+                    // si afisam scrisul cu damage-ul primit chiar deasupra clickului dat
+                    Engine.graphics.DrawString("20", new Font("Arial", 12, FontStyle.Bold),
+                        new SolidBrush(Color.White), click.X, click.Y - 20);
+                }
                 Engine.form.pictureBox1.Image = Engine.bitmap;
             }
         }
