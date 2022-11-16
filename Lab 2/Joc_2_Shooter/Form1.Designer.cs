@@ -148,8 +148,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1259, 796);
-            this.Controls.Add(this.Exit);
             this.Controls.Add(this.Play);
+            this.Controls.Add(this.Exit);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.Gun);
             this.Controls.Add(this.WaveLabel);
