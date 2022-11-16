@@ -54,7 +54,7 @@ namespace Joc_2_Shooter
         {
             // verificam daca clickul a fost facut pe acest inamic
             // trebuie sa verificam in toate pozitiile, stanga, dreapta, sus si jos
-            if (click.X > position.X && click.X < position.X + sizeX
+            if(click.X > position.X && click.X < position.X + sizeX
                 && click.Y > position.Y && click.Y < position.Y + sizeY)
             {
                 // daca pixelul din imagine este transparent, inamicul nu a fost impuscat
