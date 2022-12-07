@@ -57,6 +57,7 @@
     <Compile Include="Resources\Engine.cs" />
     <Compile Include="Resources\Library.cs" />
     <Compile Include="Resources\Enemy.cs" />
+    <Compile Include="Resources\Player.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
