@@ -69,6 +69,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -84,8 +85,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
     <Folder Include="Resources\Sound\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\fundal.png" />
+    <None Include="Resources\Images\360_F_88981880_YjJManMJ6hJmKr5CZteFJAkEzXIh8mxW.jpg" />
+    <Content Include="Resources\Images\Background.png" />
+    <None Include="Resources\Images\mountains-background-game-vector.jpg" />
+    <Content Include="Resources\Images\Player.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
